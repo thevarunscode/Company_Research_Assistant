@@ -1,0 +1,24 @@
+# Netlify config — serves the React frontend as a static site.
+# The FastAPI backend cannot run on Netlify (no Python runtime for functions);
+# deploy it on Render/Railway and either set VITE_API_BASE (recommended) or
+# use the proxy redirect below. See DEPLOYMENT.md for the full walkthrough.
+
+[build]
+  base = "frontend"
+  command = "npm install && npm run build"
+  publish = "dist"
+
+# Option B (proxy): uncomment and point at your backend to keep same-origin
+# /api calls. Note: Netlify's proxy buffers and times out around ~30s, which
+# can break long SSE research streams — Option A (VITE_API_BASE) is safer.
+# [[redirects]]
+#   from = "/api/*"
+#   to = "https://YOUR-BACKEND.onrender.com/api/:splat"
+#   status = 200
+#   force = true
+
+# SPA fallback — all non-file routes serve the app shell.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

@@ -1,0 +1,24 @@
+# Python
+backend/.venv/
+__pycache__/
+*.pyc
+backend/.env
+
+# Node
+frontend/node_modules/
+frontend/dist/
+
+# Vercel
+.vercel/
+
+# OS / editor
+.DS_Store
+*.log
+
+# Local assets not part of the app
+Screenshot*.png
+test.py
+
+# Environment Variables
+.env
+.env.example

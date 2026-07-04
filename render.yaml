@@ -1,0 +1,18 @@
+# Render Blueprint — deploys the whole app (FastAPI serving the built React SPA)
+# as ONE web service. Also usable as backend-only companion for a Netlify frontend.
+services:
+  - type: web
+    name: company-research-assistant
+    runtime: python
+    plan: free
+    buildCommand: |
+      cd frontend && npm install && npm run build && cd ..
+      pip install -r backend/requirements.txt
+    startCommand: cd backend && uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: SERPER_API_KEY
+        sync: false
+      - key: OPENROUTER_API_KEY
+        sync: false
+      - key: PYTHON_VERSION
+        value: 3.12.7
